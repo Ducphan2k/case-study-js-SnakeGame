@@ -264,3 +264,21 @@ tryAgain.addEventListener("click", function () {
     gameInterval = setInterval(update, speed);
   }
 });
+
+// modal instruct
+let instructBtn = document.getElementById("instruct-btn");
+let modalInstruct = document.querySelector(".modal-instruct");
+let modalInstructClose = document.querySelector(".modal-instruct-close");
+
+function showInstruct() {
+  modalInstruct.classList.add("open");
+  modalInstruct.style.visibility = "visible";
+}
+
+function hideInstruct() {
+  modalInstruct.classList.remove("open");
+}
+
+instructBtn.addEventListener("click", showInstruct);
+
+modalInstructClose.addEventListener("click", hideInstruct);
