@@ -1,3 +1,12 @@
+const topWiner = [
+  {
+    name: "duck",
+    point: 1,
+  },
+];
+
+localStorage.setItem("topWiner", JSON.stringify(topWiner));
+
 // board
 var blockSize = 25;
 var rows = 20;
@@ -23,9 +32,17 @@ var foodY;
 // poitn
 var point = 0;
 
+// speed
+var speed = 200;
+
+// Color
+var boardColorDefault = "black";
+var foodColorDefault = "red";
+var SnakedColorDefault = "lime";
+
 var gameOver = false;
 
-window.onload = function () {
+function run() {
   board = document.getElementById("board");
   board.height = rows * blockSize;
   board.width = clos * blockSize;
@@ -34,23 +51,24 @@ window.onload = function () {
   placeFood();
   document.addEventListener("keyup", changeDirection);
   // update();
-  setInterval(update, 200); //100 miliseconds
-};
+  setInterval(update, speed); //100 miliseconds
+}
 
 function update() {
   if (gameOver) {
     return;
   }
-  context.fillStyle = "black";
+  context.fillStyle = boardColorDefault;
   context.fillRect(0, 0, board.width, board.height);
 
-  context.fillStyle = "red";
+  context.fillStyle = foodColorDefault;
   context.fillRect(foodX, foodY, blockSize, blockSize);
 
   if (snakeX == foodX && snakeY == foodY) {
     snakeBody.push([foodX, foodY]);
-    placeFood();
     point++;
+    document.querySelector("#score").innerText = point;
+    placeFood();
   }
 
   for (let i = snakeBody.length - 1; i > 0; i--) {
@@ -61,7 +79,7 @@ function update() {
     snakeBody[0] = [snakeX, snakeY];
   }
 
-  context.fillStyle = "lime";
+  context.fillStyle = SnakedColorDefault;
   snakeX += moveX * blockSize;
   snakeY += moveY * blockSize;
   context.fillRect(snakeX, snakeY, blockSize, blockSize);
@@ -78,14 +96,22 @@ function update() {
   ) {
     gameOver = true;
     alert(`GameOver, số điểm của bạn là: ${point}`);
+    tryAgain.style.display = "block";
+    if (point > 3) {
+      var playerName = prompt("Vui lòng nhập tên của bạn:");
+      var playerScore = {
+        name: playerName,
+        score: point,
+      };
 
-    prompt("vui lòng nhập tên của bạn:");
-  }
-  for (let i = 0; i < snakeBody.length; i++) {
-    if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
-      gameOver = true;
-      alert(`GameOver, số điểm của bạn là: ${point}`);
-      prompt("vui lòng nhập tên của bạn:");
+      // Retrieve existing scores from local storage
+      var storedScores = JSON.parse(localStorage.getItem("playerScores")) || [];
+
+      // Add the new score to the array
+      storedScores.push(playerScore);
+
+      // Store the updated scores in local storage
+      localStorage.setItem("playerScores", JSON.stringify(storedScores));
     }
   }
 }
@@ -121,10 +147,13 @@ function placeFood() {
 }
 
 // Start Game
+let detailStart = document.getElementById("detail-start");
 let start = document.getElementById("start-btn");
 let container = document.querySelector(".container");
 start.addEventListener("click", function () {
   board.style.display = "block";
+  detailStart.style.display = "flex";
+
   container.style.display = "none";
 });
 
@@ -155,26 +184,83 @@ modalClose.addEventListener("click", hideSettings);
 // level speed
 
 var select = document.getElementById("select");
-var easy = document.getElementById("easy");
-var normal = document.getElementById("normal");
-var hard = document.getElementById("hard");
-var supper = document.getElementById("supper");
 
-function levelEasy() {
-  placeFood.setInterval(update, 200);
-}
+select.addEventListener("change", function () {
+  if (select.value === "easy") {
+    speed = 200;
+    run();
+  } else if (select.value === "normal") {
+    speed = 150;
+    run();
+  } else if (select.value === "hard") {
+    speed = 100;
+    run();
+  } else if (select.value === "supper") {
+    speed = 50;
+    run();
+  }
+});
 
-function levelNormal() {
-  placeFood.setInterval(update, 150);
-}
-function levelHard() {
-  placeFood.setInterval(update, 100);
-}
-function levelSupper() {
-  placeFood.setInterval(update, 50);
-}
+run();
 
-easy.addEventListener("change", levelEasy);
-normal.addEventListener("change", levelNormal);
-hard.addEventListener("change", levelHard);
-supper.addEventListener("change", levelSupper);
+// color
+var boardColor = document.getElementById("board-color");
+boardColor.addEventListener("change", function () {
+  boardColorDefault = boardColor.value;
+  update();
+});
+var foodColor = document.getElementById("food-color");
+foodColor.addEventListener("change", function () {
+  foodColorDefault = foodColor.value;
+  update();
+});
+var SnakeColor = document.getElementById("head-snake-color");
+SnakeColor.addEventListener("change", function () {
+  SnakedColorDefault = SnakeColor.value;
+  update();
+});
+
+// stop game
+var stop = document.getElementById("stop-btn");
+stop.addEventListener("click", function () {
+  alert("tam dung");
+});
+
+// return
+var turnBack = document.getElementById("turn-back-btn");
+turnBack.addEventListener("click", function () {
+  board.style.display = "none";
+  detailStart.style.display = "none";
+
+  container.style.display = "flex";
+});
+
+// try again
+var tryAgain = document.getElementById("try-again-btn");
+tryAgain.addEventListener("click", function () {
+  tryAgain.style.display = "none";
+  // Reset game state
+  gameOver = false;
+  snakeX = blockSize * 5;
+  snakeY = blockSize * 5;
+  moveX = 0;
+  moveY = 0;
+  snakeBody = [];
+  point = 0;
+  document.querySelector("#score").innerText = point;
+
+  // Clear existing interval
+  clearInterval(gameInterval);
+  // Clear canvas
+  // context.clearRect(0, 0, board.width, board.height);
+  // context.clearRect(foodX, foodY, blockSize, blockSize);
+  update;
+  // Run the game again
+  run();
+  function run() {
+    // ... existing code ...
+
+    // Start game interval
+    gameInterval = setInterval(update, speed);
+  }
+});

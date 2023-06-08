@@ -7,6 +7,9 @@ body {
     width: 100vw;
     height: 100vh;
     margin: 0;
+    background-color: #E3F2FD;
+    position: relative;
+    
 }
 
 #board {
@@ -15,12 +18,16 @@ body {
 }
 
 .container {
-    background-image: url('https://wallpaperaccess.com/full/8552475.jpg');
+    background-image: url('https://i.ytimg.com/vi/pbok2hgqD8I/maxresdefault.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    gap: 200px;
+    justify-content: center;
+    
 }
 
 #start-btn,
@@ -30,12 +37,13 @@ body {
     width: 150px;
     height: 50px;
     border-radius: 10px;
-    color: rgb(9, 195, 215);
-    background-color: rgb(171, 7, 127);
+    color: rgb(219, 215, 229);
+    background-color: rgb(165, 67, 17);
     border: none;
     margin-top: 300px;
     font-size: 20px;
     font-weight: bold;
+    
 }
 
 #start-btn:hover,
@@ -44,6 +52,60 @@ body {
 #Exit-btn:hover {
     opacity: 0.8;
     cursor: pointer;
+}
+
+#detail-start{
+    position: absolute;
+    top: 40px;
+    gap: 100px;
+    display: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: #971a63;
+    align-items: center;
+    
+}
+
+#stop-btn {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    color: rgb(166, 26, 26);
+    background-color: rgb(201, 91, 18);
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    
+}
+
+#stop-btn:hover, #turn-back-btn:hover, #try-again-btn:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+#turn-back-btn{
+   width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    color: rgb(104, 201, 104);
+    background-color: rgb(177, 26, 160);
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#try-again-btn{
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    color: rgb(179, 199, 80);
+    background-color: rgb(83, 127, 172);
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    display: none;
+    position: absolute;
+    z-index: 50;
 }
 
 
@@ -111,9 +173,13 @@ body {
     color: rgb(9, 19, 64);
 }
 
+.level{
+    margin-bottom: 20px;
+}
+
 #select {
     font-size: 15px;
-    color: rgb(96, 25, 63);
+    color: rgb(235, 229, 233);
     background-color: rgb(34, 124, 193);
 }
 

@@ -12,58 +12,58 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="./main.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
     <div class="container">
       <button id="start-btn">Start</button>
       <button id="settings-btn">Setting</button>
       <button id="Score-btn">High Score</button>
-      <button id="Exit-btn">Exit Game</button>
+      
     </div>
-    
+
+    <div id="detail-start">
+      <div>Score:<span id="score">0</span></div>
+      <div id="high-score">High Score: 30</div>
+      <button id="stop-btn">Stop</button>
+      <button id="turn-back-btn">Return</button>
+    </div>
+    <button id="try-again-btn">Try Again</button>
     <canvas id="board"></canvas>
 
-      <div class="modal js-modal open">
-        <div class="modal-container">
-          <div class="modal-close js-modal-close">
-            <i class="fa-solid fa-circle-xmark"></i>
-          </div>
-          <header class="modal-header">Settings</header>
+    <div class="modal js-modal open">
+      <div class="modal-container">
+        <div class="modal-close js-modal-close">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </div>
+        <header class="modal-header">Settings</header>
 
-          <div class="modal-body">
-            <div class="level">
-              Level: 
-              <select name="" id="select">
-                <option value="" id="easy">Easy</option>
-                <option value="" id="normal">Normal</option>
-                <option value="" id="hard">Hard</option>
-                <option value="" id="supper">Supper</option>
-              </select>
-            </div>
-            <div class="color">
-             <div class="color-wrapper">
-              <label for="">Màu bảng:</label>
-              <input type="color">
-             </div>
-             <div class="color-wrapper">
-              <label for="">Màu thức ăn:</label>
-              <input type="color">
-             </div>
-             <div class="color-wrapper">
-              <label for="">Màu đầu rắn:</label>
-              <input type="color">
-             </div>
-             <div class="color-wrapper">
-              <label for="">Màu thân rắn:</label>
-              <input type="color">
-             </div>
-            </div>
+        <div class="modal-body">
+          <div class="level">
+            Level:
+            <select name="" id="select">
+              <option value="easy" id="easy">Easy</option>
+              <option value="normal" id="normal">Normal</option>
+              <option value="hard" id="hard">Hard</option>
+              <option value="supper" id="supper">Supper</option>
+            </select>
+          </div>
+
+          <div class="color-wrapper">
+            <label for="">Màu bảng:</label>
+            <input type="color" id="board-color" />
+          </div>
+          <div class="color-wrapper">
+            <label for="">Màu thức ăn:</label>
+            <input type="color" id="food-color" />
+          </div>
+          <div class="color-wrapper">
+            <label for="">Màu rắn:</label>
+            <input type="color" id="head-snake-color" />
           </div>
         </div>
       </div>
-    
-    
-    <script src="./scripts.js"></script>
+    </div>
   </body>
+  <script src="./assets/js/snake.js"></script>
 </html>
