@@ -1,11 +1,7 @@
-const topWiner = [
-  {
-    name: "duck",
-    point: 1,
-  },
-];
-
-localStorage.setItem("topWiner", JSON.stringify(topWiner));
+// sound
+let snakeEatSound = new Audio("snakeeat.mp3");
+let gameOverSound = new Audio("gameover.mp3");
+let snakeMusicSound = new Audio("snakemusic.mp3");
 
 // board
 var blockSize = 25;
@@ -43,10 +39,14 @@ var SnakedColorDefault = "lime";
 var gameOver = false;
 
 function run() {
+  document.getElementById("high-score").innerText =
+    localStorage.getItem("highScore") || 0;
   board = document.getElementById("board");
   board.height = rows * blockSize;
   board.width = clos * blockSize;
   context = board.getContext("2d"); //used for drawing on the board
+
+  update();
 
   placeFood();
   document.addEventListener("keyup", changeDirection);
@@ -69,6 +69,9 @@ function update() {
     point++;
     document.querySelector("#score").innerText = point;
     placeFood();
+
+    // Play the snake eat sound
+    snakeEatSound.play();
   }
 
   for (let i = snakeBody.length - 1; i > 0; i--) {
@@ -95,23 +98,16 @@ function update() {
     snakeY > rows * blockSize
   ) {
     gameOver = true;
+    // Play the game over sound
+    gameOverSound.play();
     alert(`GameOver, số điểm của bạn là: ${point}`);
     tryAgain.style.display = "block";
-    if (point > 3) {
-      var playerName = prompt("Vui lòng nhập tên của bạn:");
-      var playerScore = {
-        name: playerName,
-        score: point,
-      };
+    var highScore = parseInt(
+      JSON.parse(localStorage.getItem("highScore")) || 0
+    );
 
-      // Retrieve existing scores from local storage
-      var storedScores = JSON.parse(localStorage.getItem("playerScores")) || [];
-
-      // Add the new score to the array
-      storedScores.push(playerScore);
-
-      // Store the updated scores in local storage
-      localStorage.setItem("playerScores", JSON.stringify(storedScores));
+    if (point > highScore) {
+      localStorage.setItem("highScore", point);
     }
   }
 }
@@ -153,8 +149,10 @@ let container = document.querySelector(".container");
 start.addEventListener("click", function () {
   board.style.display = "block";
   detailStart.style.display = "flex";
-
   container.style.display = "none";
+
+  // Play the snake music sound
+  snakeMusicSound.play();
 });
 
 // modal settings
@@ -229,9 +227,10 @@ stop.addEventListener("click", function () {
 // return
 var turnBack = document.getElementById("turn-back-btn");
 turnBack.addEventListener("click", function () {
+  
   board.style.display = "none";
   detailStart.style.display = "none";
-
+  tryAgain.style.display = "none";
   container.style.display = "flex";
 });
 
@@ -252,17 +251,14 @@ tryAgain.addEventListener("click", function () {
   // Clear existing interval
   clearInterval(gameInterval);
   // Clear canvas
-  // context.clearRect(0, 0, board.width, board.height);
-  // context.clearRect(foodX, foodY, blockSize, blockSize);
-  update;
+  context.clearRect(0, 0, board.width, board.height);
+  context.clearRect(foodX, foodY, blockSize, blockSize);
+
+  // Reset food position
+  placeFood();
+
   // Run the game again
   run();
-  function run() {
-    // ... existing code ...
-
-    // Start game interval
-    gameInterval = setInterval(update, speed);
-  }
 });
 
 // modal instruct

@@ -15,15 +15,17 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
+    <audio src="./snakemusic.mp3" id="music-sound"></audio>
     <div class="container">
       <button id="start-btn">Start</button>
       <button id="settings-btn">Settings</button>
       <button id="instruct-btn">Instruct</button>
+      
     </div>
 
     <div id="detail-start">
       <div>Score:<span id="score">0</span></div>
-      <div id="high-score">High Score: 30</div>
+      <div>High Score: <span id="high-score">0</span></div>
       <button id="stop-btn">Stop</button>
       <button id="turn-back-btn">Return</button>
     </div>
@@ -84,7 +86,8 @@
             <button id="stop-instruct">Stop</button> Tạm dừng trò chơi
           </div>
           <div class="turnback">
-            <button id="turn-back-instruct">Return</button> Quay lại màn hình chính
+            <button id="turn-back-instruct">Return</button> Quay lại màn hình
+            chính
           </div>
         </div>
       </div>
