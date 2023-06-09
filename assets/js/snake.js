@@ -114,25 +114,21 @@ function update() {
 
 // Di chuyển
 function changeDirection(e) {
-  if (e.code == "Space") {
-    alert("tam dung");
-  } else {
-    if (e.code == "ArrowUp" && moveY != 1) {
-      moveX = 0;
-      moveY = -1;
-    }
-    if (e.code == "ArrowDown" && moveY != -1) {
-      moveX = 0;
-      moveY = 1;
-    }
-    if (e.code == "ArrowLeft" && moveX != 1) {
-      moveX = -1;
-      moveY = 0;
-    }
-    if (e.code == "ArrowRight" && moveX != -1) {
-      moveX = 1;
-      moveY = 0;
-    }
+  if (e.code == "ArrowUp" && moveY != 1) {
+    moveX = 0;
+    moveY = -1;
+  }
+  if (e.code == "ArrowDown" && moveY != -1) {
+    moveX = 0;
+    moveY = 1;
+  }
+  if (e.code == "ArrowLeft" && moveX != 1) {
+    moveX = -1;
+    moveY = 0;
+  }
+  if (e.code == "ArrowRight" && moveX != -1) {
+    moveX = 1;
+    moveY = 0;
   }
 }
 
@@ -227,7 +223,6 @@ stop.addEventListener("click", function () {
 // return
 var turnBack = document.getElementById("turn-back-btn");
 turnBack.addEventListener("click", function () {
-  
   board.style.display = "none";
   detailStart.style.display = "none";
   tryAgain.style.display = "none";
